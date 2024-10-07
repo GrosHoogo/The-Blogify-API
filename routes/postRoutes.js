@@ -6,8 +6,8 @@ const {
     getPostById, 
     updatePost, 
     deletePost,
-    likePost,    // Ajoutez ces deux nouvelles
-    unlikePost   // fonctions importées
+    likePost,
+    unlikePost
 } = require('../controllers/postController');
 const auth = require('../middleware/auth');
 
@@ -26,8 +26,10 @@ router.put('/:id', auth, updatePost);
 // Supprimer
 router.delete('/:id', auth, deletePost);
 
-// Nouvelles routes pour like et unlike
+// Like
 router.put('/like/:id', auth, likePost);
+
+// Unlike
 router.put('/unlike/:id', auth, unlikePost);
 
 module.exports = router;
