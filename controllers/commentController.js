@@ -2,16 +2,20 @@ const Comment = require('../models/Comment');
 
 exports.createComment = async (req, res) => {
   try {
-    const { text, postId } = req.body;
+    console.log('Received request body:', req.body);
+    console.log('User from token:', req.user);
+
+    const { text, post } = req.body;
     const newComment = new Comment({
       text,
-      author: req.user.id, 
-      post: postId
+      author: req.user.id,
+      post
     });
 
     const savedComment = await newComment.save();
     res.status(201).json(savedComment);
   } catch (error) {
+    console.error('Error in createComment:', error);
     res.status(500).json({ message: "Erreur lors de la création du commentaire", error: error.message });
   }
 };

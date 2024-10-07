@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = '1234'; // Note: Il est préférable d'utiliser une variable d'environnement pour cela
+const JWT_SECRET = '1234'; 
 
 exports.registerUser = async (req, res) => {
   try {
