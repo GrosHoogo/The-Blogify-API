@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 
+const JWT_SECRET = '1234'; // Utilisez la même valeur que dans votre userController.js
+
 module.exports = function(req, res, next) {
   const token = req.header('x-auth-token');
 
@@ -8,7 +10,7 @@ module.exports = function(req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET);
     req.user = decoded.user;
     next();
   } catch (err) {
