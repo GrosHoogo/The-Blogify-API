@@ -1,13 +1,15 @@
 {
   "name": "the-blogify-api",
   "version": "1.0.0",
-  "description": "Welcome to **Blogify API**, the backend service designed to power **Blogify**, a platform that facilitates the creation, publication, and management of blog posts. Blogify enables users to engage with the content by leaving comments and liking posts, creating a dynamic and community-driven blogging experience.",
-  "main": "index.js",
+  "description": "API pour l'application Blogify",
+  "main": "app.js",
   "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["blog", "api", "nodejs", "express", "mongodb"],
+  "author": "Votre Nom",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -18,5 +20,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
