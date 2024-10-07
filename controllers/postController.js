@@ -66,3 +66,47 @@ exports.deletePost = async (req, res) => {
     res.status(500).json({ message: "Erreur lors de la suppression du post", error: error.message });
   }
 };
+
+exports.likePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    
+    if (!post) {
+      return res.status(404).json({ message: "Post non trouvé" });
+    }
+
+    // Vérifier si l'utilisateur a déjà liké le post
+    if (post.likes.includes(req.user.id)) {
+      return res.status(400).json({ message: "Vous avez déjà liké ce post" });
+    }
+
+    post.likes.push(req.user.id);
+    await post.save();
+
+    res.json({ message: "Post liké avec succès", likes: post.likes.length });
+  } catch (error) {
+    res.status(500).json({ message: "Erreur lors du like du post", error: error.message });
+  }
+};
+
+exports.unlikePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    
+    if (!post) {
+      return res.status(404).json({ message: "Post non trouvé" });
+    }
+
+    // Vérifier si l'utilisateur a liké le post
+    if (!post.likes.includes(req.user.id)) {
+      return res.status(400).json({ message: "Vous n'avez pas encore liké ce post" });
+    }
+
+    post.likes = post.likes.filter(like => like.toString() !== req.user.id);
+    await post.save();
+
+    res.json({ message: "Like retiré avec succès", likes: post.likes.length });
+  } catch (error) {
+    res.status(500).json({ message: "Erreur lors du retrait du like", error: error.message });
+  }
+};

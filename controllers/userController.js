@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = '1234'; 
+const JWT_SECRET = '1234'; // Note: Il est préférable d'utiliser une variable d'environnement pour cela
 
 exports.registerUser = async (req, res) => {
   try {
@@ -75,6 +75,23 @@ exports.getUserProfile = async (req, res) => {
     res.status(500).send('Server Error');
   }
 };
+
+exports.deleteUser = async (req, res) => {
+    try {
+      const user = await User.findByIdAndDelete(req.user.id);
+  
+      if (!user) {
+        return res.status(404).json({ msg: 'Utilisateur non trouvé' });
+      }
+  
+      res.json({ msg: 'Utilisateur supprimé avec succès' });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Erreur serveur');
+    }
+  };
+  
+
 
 // Fonction pour mettre à jour le profil de l'utilisateur
 exports.updateUserProfile = async (req, res) => {
