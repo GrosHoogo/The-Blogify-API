@@ -5,11 +5,12 @@ exports.createComment = async (req, res) => {
     console.log('Received request body:', req.body);
     console.log('User from token:', req.user);
 
-    const { text, post } = req.body;
+    const { text } = req.body;
+    const postId = req.params.postId;
     const newComment = new Comment({
       text,
       author: req.user.id,
-      post
+      post: postId
     });
 
     const savedComment = await newComment.save();
